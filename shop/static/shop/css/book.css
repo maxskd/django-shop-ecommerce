@@ -1,0 +1,69 @@
+/* Book Photo Block */
+.book-img {
+    width: 300px;
+    height: 470px;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#book-img-id {
+    max-width: 100%;
+    height: 100%;
+    animation: 1.5s ease-in-out 0s 1 fade-in;
+    transition: transform 0.5s;
+}
+
+#book-img-id:hover {
+    transform: scale(1.2);
+}
+
+/* Main Information Block */
+
+.book-info {
+    animation: 1.5s ease-in-out news-change-two-percent;
+}
+
+/* Share and Back Icons */
+.share-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--first-light-color);
+    color: var(--first-light-color);
+}
+
+.share-icon:hover {
+    background-color: var(--first-light-color);
+    color: #fafbfc;
+}
+
+/* Character(Title, Author, etc.) Block */
+.book-character-link {
+    color: var(--secondary-color);
+}
+
+.book-character-link:hover {
+    color: var(--first-light-color);
+}
+
+.book-character-text {
+    font-size: 20px;
+}
+
+/* Additional Information Block */
+.additional-info {
+    animation: 1.5s ease-in-out news-change-two-percent;
+}
+
+ul {
+    list-style: none;
+}
+
+.ul-list {
+    margin-left: -2rem;
+}

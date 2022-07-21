@@ -1,0 +1,151 @@
+{% extends 'shop/layout.html' %}
+{% load static %}
+{% load shop_tags %}
+{% load_user_info as user_info %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/profile.css' %}">
+<!-- Container Profile Block -->
+<div class="container container-profile pb-5">
+    <div class="row mt-3 g-4">
+        <!-- Container User Info Block -->
+        <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-12">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="account-settings justify-content-center">
+                        <div class="user-profile pt-3">
+                            {% if user.customer.photo_user %}
+                            <div class="user-avatar text-center">
+                                <img src="{{request.user.customer.photo_user.url}}" class="mb-3 mx-3 img-user">
+                            </div>
+                            {% else %}
+                            <div class="d-flex justify-content-center text-center">
+                                <div class="mb-3 mx-3 d-flex justify-content-center align-items-center user-none-avatar">
+                                    <i class="bi bi-person-fill img-none-user"></i>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <div class="user-info text-center mb-5">
+                                <h3 class="text-main-info">{{user.first_name}} {{user.last_name}}</h3>
+                                <h5 class="pb-2">{{user.email}}</h5>
+                                <a class="btn btn-lg btn-profile" href="{% url 'logout' %}">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Change Info Block-->
+        <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <form class="row gx-5 gy-3 p-5" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="col-md-12 text-center">
+                        <h1 class="text-main-info">Personal Info</h1>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="input-email" class="form-label profile-text">Email Address</label>
+                        <input type="email" name="email" value="{{user.email}}" class="form-control" id="input-email" autocomplete="off">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="input-name" class="form-label profile-text">Name</label>
+                        <input type="text" name="first_name" class="form-control" id="input-name" value="{{user.first_name}}" autocomplete="off">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="input-last-name" class="form-label profile-text">Surname</label>
+                        <input type="text" name="last_name" class="form-control" id="input-last-name" value="{{user.last_name}}" autocomplete="off">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="input-phone" class="form-label profile-text">Phone number</label>
+                        <input type="text" name="phone" class="form-control" id="input-phone" value="{{user.customer.phone}}" autocomplete="off">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="input-date" class="form-label profile-text">Your Date birth <small>(day-month-year)</small></label>
+                        <input type="text" name="birth_date" class="form-control" id="input-date" value="{{user.customer.birth_date|date:'d.m.y'}}" autocomplete="off">
+                    </div>
+                    <div class="col-md-6">
+                        <p class="form-label profile-text">Choose your Avatar</p>
+                        <label for="id_photo_user" class="btn btn-lg btn-profile">Choose file</label>
+                        <input class="custom-file-input" name="photo_user" accept="image/*" type="file" id="id_photo_user" hidden>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="form-label profile-text">Save Changes</p>
+                        <button type="submit" class="btn btn-lg btn-profile">Edit</button>
+                    </div>
+                </form>
+                <div class="msg pt-3 pb-4 text-center">
+                    {% for m in messages %}
+                        <h3 class="text-danger">{{m}}</h3>
+                    {% endfor %}
+                </div>
+                <div class="text-center">
+                    <h2 class="text-main-info">Purchase History</h2>
+                </div>
+                <!-- Accordion Purchase History -->
+                <div class="mx-5 mb-5">
+                    <div class="accordion" id="accordionExample">
+                        {% if completed_order %}
+                        {% for o in completed_order %}
+                        <div class="card-history mb-3">
+                            <div class="card-header text-center" id="headingOne">
+                                <h2 class="mb-minus-2">
+                                    <button class="btn btn-link btn-history w-100 text-center" type="button" data-toggle="collapse" data-target="#collapse{{o.pk}}" aria-expanded="true" aria-controls="collapseOne">
+                                        <p class="completed-order-text">Completed Order #{{o.transaction_id}} with Date : {{o.date_ordered}}</p>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse{{o.pk}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <hr>
+                                    <h5 class="text-main-info pb-3">Order ID: #{{o.transaction_id}}</h5>
+                                    <div class="row text-center mx-3 p-2 order-border">
+                                        <div class="col">
+                                            Order Date:
+                                            <br> {{o.date_ordered}}
+                                        </div>
+                                        <div class="col">
+                                            Total Amount of Books:
+                                            <br> <span class="place-for-quantity"></span>
+                                        </div>
+                                        <div class="col">
+                                            Total Price:
+                                            <br> <span class="place-for-price">{{o.pk}}</span>
+                                        </div>
+                                    </div>
+                                    <h5 class="text-main-info pb-3 pt-4">Additional Information:</h5>
+                                    <!-- More Info Purchase History -->
+                                    <div class="row">
+                                        {% for items in o.parts_with_books %}
+                                        <div class="col-md-4 col-sm-6 col-12 col-lg-6 col-xl-4 book-info">
+                                            <div class="mb-3">
+                                                <div class="row">
+                                                    <div class="col-3 col-sm-4 col-md-4 col-lg-3"><a href="{% url 'book' items.book.slug_book %}"><img src="{{items.book.photo_of_book.url}}" class="img-sm border"></a></div>
+                                                    <div class="info col-9 col-sm-8 col-md-8 col-lg-9">
+                                                        <p class="title">
+                                                            Name: <a href="{% url 'book' items.book.slug_book %}" class="profile-link">{{items.book}}</a>
+                                                            <br> Amount: <span class="item-quantity">{{items.quantity}}</span> book(s)
+                                                            <br> Price Per Unit: {{items.book.price}}₸
+                                                            <br> <strong>Total amount: <span class="item-total">{{items.get_total}}</span>₸</strong>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div class="text-center text-muted">
+                            <h3>No any Order in your Account</h3>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'main/js/order_info.js' %}"></script>
+{% endblock %}

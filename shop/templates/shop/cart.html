@@ -1,0 +1,87 @@
+{% extends 'shop/layout.html' %}
+{% load shop_tags %}
+{% load_user_info as user_info %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'shop/css/cart.css' %}">
+    <!-- Main Cart Block -->
+    <div class="container-fluid container-cart pt-3 mb-4">
+        <div class="py-3 pt-3">
+            <h1 class="text-center text-cart-white">Your Cart</h1>
+        </div>
+    </div>
+    <div class="row mx-5">
+        <!-- Cart Products Block -->
+        <div class="col-xl-8 col-12 pb-5 mb-5">
+            <!-- Cart Info Block -->
+            <div class="d-flex justify-content-between mt-6">
+                <h2 class="text-cart-white"><strong>Products</strong></h2>
+                <div>
+                    <a class="btn btn-lg btn-cart-back" href="{% url 'shop' %}"><i class="bi bi-chevron-left"></i>Continue Shopping</a>
+                </div>
+            </div>
+            <!-- Cart Errors Block -->
+            <div class="pt-5 mt-4 px-3 cart-error">
+                {% for message in messages %}
+                    <div class="text-center mb-5 text-success">
+                        <h3>{{ message }}</h3>
+                    </div>
+                {% endfor %}
+                {% for i in user_info.items %}
+                <!-- Cart Item Block -->
+                <div class="d-sm-flex justify-content-between pb-4 border-bottom mb-5">
+                    <!-- Cart Photo and Info Block -->
+                    <div class="d-flex align-items-center text-left">
+                        <a href="{% url 'book' i.book.slug_book %}"><img src="{{i.book.photo_of_book.url}}" width="160" class="img-cart"></a>
+                        <div>
+                            <h3><strong><a href="{% url 'book' i.book.slug_book %}" class="text-decoration-none book-link">{{i.book.title}}</a></strong></h3>
+                            <h5>By (Author): {{i.book.author}}</h5>
+                            <h5>Quantity in cart: <strong class="item-quantity">{{i.quantity}}</strong></h5>
+                            <h4 class="text-main-info"><strong class="item-price">{{i.book.price|floatformat:2}}₸</strong></h4>
+                        </div>
+                    </div>
+                    <!-- Cart Change Quantity Block -->
+                    <div class="d-flex text-center justify-content-center align-items-center">
+                        <a class="btn btn-lg change-quantity update-cart btn-quantity mx-2" data-book="{{i.book.pk}}" data-action="remove"><i class="bi bi-caret-left-fill"></i></a>
+                        <a class="btn btn-lg change-quantity update-cart btn-quantity" data-book="{{i.book.pk}}" data-action="add"><i class="bi bi-caret-right-fill"></i></a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- Cart Subtotal Block -->
+        <div class="col-xl-4 col-12">
+            <div class="row text-center cart-cont align-items-center px-5 mx-5 mb-5 pb-2">
+                <h3 class="pt-4"><strong>Subtotal</strong></h3>
+                <h3 class="text-main-info pt-2pb-3" id="total-price"></h3>
+                <hr class="text-main-info">
+                <!-- Accordion Promo code Block -->
+                <div class="accordion" id="accordionExample">
+                    <div class="mb-4">
+                        <!-- Accordion Button -->
+                        <div class="text-center mt-3" id="headingOne">
+                            <h2 class="mb-minus-2">
+                                <button class="btn btn-link btn-accordion w-100 text-center" type="button" data-toggle="collapse" data-target="#collapse{{o.pk}}" aria-expanded="true" aria-controls="collapseOne">
+                                    <span class="text-accordion">Have promo code?</span>
+                                </button>
+                            </h2>
+                        </div>
+                        <!-- Accordion Content -->
+                        <div id="collapse{{o.pk}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <input class="form-control" type="text" required>
+                                    <button class="btn btn-promocode w-100 mt-4" type="submit">Apply Promo Code</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Checkout Button -->
+                <a class="btn btn-checkout mb-4" href="{% url 'checkout' %}">Proceed to Checkout</a>
+            </div>
+        </div>
+    </div>
+<script src="{% static 'shop/js/cart_total.js' %}"></script>
+{% endblock %}

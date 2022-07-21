@@ -1,0 +1,264 @@
+{% extends 'shop/layout.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/welcome.css' %}">
+<link rel="stylesheet" href="{% static 'shop/css/shop.css' %}">
+<div class="container-welcome">
+    <div class="container-fluid d-flex justify-content-center align-items-center" style="height: 600px; overflow: hidden;">
+        <div class="mx-3 text-center" style="animation: news-change-two-percent 1.5s ease-in-out;">
+            <h1 style="font-size: 10vw;"><strong>BookStore</strong></h1>
+            <h3 style="font-style: italic;">Welcome to the online shop</h3>
+        </div>
+    </div>
+    <!-- Benefits Block -->
+    <div class="container-fluid">
+        <div class="row mt-5 px-5">
+            <div class="text-center animation-block">
+                <h1><strong>Our product</strong></h1>
+                <h5 class="text-main-info">Our Features and Benefits</h5>
+            </div>
+            <div class="animation-block-right col-sm-8 offset-sm-4 mb-5 mt-5 animation-block">
+                <div class="row position-relative">
+                    <div class="col-sm-4 d-flex align-items-center mb-3 text-center text-md-end">
+                        <div>
+                            <h3>Best Offers And Many Books</h3>
+                            <a class="btn btn-lg card-btn-cl mt-3 mb-3" href="{% url 'shop' %}">Go to the Shop</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <img class="rounded img-fluid benefit-img" src="{% static 'main/img/book-b1.jpg' %}">
+                    </div>
+                </div>
+            </div>
+            <div class="animation-block-left col-sm-8 mb-5 mt-5 animation-block">
+                <div class="row position-relative">
+                    <div class="col-sm-8">
+                        <img class="rounded img-fluid benefit-img" src="{% static 'main/img/book-b2.jpg' %}" style="float: right;">
+                    </div>
+                    <div class="col-sm-4 d-flex align-items-center text-center text-md-start mb-3 mt-3">
+                        <div>
+                            <h3>Books That Changed the World</h3>
+                            <a class="btn btn-lg card-btn-cl mt-3" href="{% url 'category' 'top' 1 %}">Popular Books</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="animation-block-right col-sm-8 offset-sm-4 mb-5 mt-5 pb-3 animation-block">
+                <div class="row position-relative">
+                    <div class="col-sm-4 d-flex align-items-center text-center text-md-end mb-3">
+                        <div>
+                            <h3>Writers Who United Generations</h3>
+                            <a class="btn btn-lg card-btn-cl mt-3" href="{% url 'category' 'new' 1 %}">New Books</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <img class="rounded img-fluid benefit-img" src="{% static 'main/img/book-b3.jpg' %}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Shop Book Block -->
+    <div class="container-fluid mb-5">
+        <div class="text-center animation-block">
+            <h1><strong>Our Book Shop</strong></h1>
+            <h5 class="text-main-info">More Deal in the <a class="text-decoration-none text-shop" href=""><strong>Shop</strong></a></h5>
+        </div>
+        <div class="row row-flex mx-n2 px-5 animation-block-top animation-block">
+            {% for b in books %}
+            <!-- Book Block -->
+            <div class="col-lg-3 col-md-4 col-sm-6 px-2 mb-4 pt-5">
+                <div class="card card-book-cl">
+                <!-- Badge Block -->
+                {% if b.number_of_books >= 10 %}
+                <span class="text-center badge-book">Top</span>
+                {% elif b.number_of_books < 10 and b.number_of_books > 0 %}
+                <span class="text-center badge-book" style="visibility: hidden;">1</span>
+                {% elif b.number_of_books <= 0 %}
+                <span class="text-center badge-none-book col-3 col-sm-6 col-md-6 col-lg-6 col-xl-5">Out Of Stock</span>
+                {% endif %}
+                <!-- Block Img Block -->
+                <a href="{% url 'book' b.slug_book %}" class="d-block overflow-hidden card-book-img">
+                    <img src="{{b.photo_of_book.url}}" class="img-card">
+                </a>
+                <!-- Block Info Block -->
+                {% if b.number_of_books > 0 %}
+                <div class="card-body">
+                    <a href="{% url 'category' 'genre' b.genre.slug %}" class="text-muted card-link">{{b.genre}}</a>
+                    <h3>
+                        <a href="{% url 'book' b.slug_book %}" class="card-link">{{b.title}}</a>
+                    </h3>
+                    <div class="d-flex justify-content-between text-end">
+                        <div>
+                            <span>{{b.price}}₸</span>
+                        </div>
+                        <a href="{% url 'category' 'author' b.author.slug %}" class="card-link">{{b.author}}</a>
+                    </div>
+                </div>
+                <!-- Add to Cart Button -->
+                <div class="card-body card-body-hidden">
+                    <button class="btn d-block w-100 mb-2 update-cart book-card-hidden-btn" data-book="{{b.pk}}" data-action="add"><i class="bi bi-cart"></i>Add to the Cart</button>
+                </div>
+                {% else %}
+                <div class="card-body">
+                    <a href="{% url 'category' 'genre' b.genre.slug %}" class="text-muted card-link">{{b.genre}}</a>
+                    <h3>
+                        <a href="{% url 'book' b.slug_book %}" class="card-link card-book-title text-muted">{{b.title}}</a>
+                    </h3>
+                    <div class="d-flex justify-content-between text-end">
+                        <div>
+                            <span class="text-muted">{{b.price}}₸</span>
+                        </div>
+                        <a href="{% url 'category' 'author' b.author.slug %}" class="card-link text-muted">{{b.author}}</a>
+                    </div>
+                </div>
+                <div class="card-body card-body-hidden text-center">
+                    <h5 class="d-block w-100 mb-2 text-muted">This item is out of stock</h5>
+                </div>
+                {% endif %}
+            </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Parallax Block -->
+    <div class="parallax parallax-bg-first">
+        <div class="parallax-background d-flex align-items-center justify-content-center">
+            <div class="text-center animation-block">
+                <span class="parallax-text"><strong>BookStore</strong></span>
+                <h2 class="text-white"><strong>Welcome to the World of Books</strong></h2>
+            </div>
+        </div>
+    </div>
+    <!-- Top Sale Block -->
+    <div class="container-fluid pb-140 pt-140">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 animation-block animation-block-top">
+                    <div class="mb-5 pt-40 position-relative">
+                        <h3 class="sale-left-block">
+                            <span>{{book_sale.author}}</span>
+                            <br>
+                            <strong>Top Book</strong>
+                            <br>
+                            <span>{{book_sale.genre}}</span>
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-sm-4 d-flex align-items-center animation-block animation-block-bottom position-relative">
+                    <img src="{% static 'main/img/sale-book-f.png' %}" class="img-fluid img-scale">
+                    <div class="sale-badge">
+                        <span>New Price</span>
+                        <h5>{{book_sale.price}}₸</h5>
+                    </div>
+                </div>
+                <div class="col-sm-4 offset-sm-1 text-center text-sm-start animation-block animation-block-top position-relative pt-40">
+                    <h4 class="text-main-info">Deal Of the Month</h4>
+                    <h1><strong>{{book_sale.title}}</strong></h1>
+                    <div class="container-countdown mt-4">
+                        <div class="countdown">
+                            <h3 class="day"></h3>
+                            <h5>DD</h5>
+                        </div>
+                        <div class="countdown">
+                            <h3 class="hour"></h3>
+                            <h5>HH</h5>
+                        </div>
+                        <div class="countdown">
+                            <h3 class="minute"></h3>
+                            <h5>MM</h5>
+                        </div>
+                        <div class="countdown">
+                            <h3 class="second"></h3>
+                            <h5>SS</h5>
+                        </div>
+                    </div>
+                    <a href="{% url 'book' book_sale.slug_book %}" class="btn btn-lg card-btn-cl mt-3">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Instagram Block -->
+    <div class="container-fluid pt-40 pb-140">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 animation-block animation-block-right instagram-block">
+                    <div class="instagram-image instagram-image-1">
+                    </div>
+                    <div class="instagram-image instagram-image-2">
+                    </div>
+                    <div class="instagram-image instagram-image-3">
+                    </div>
+                    <div class="instagram-image instagram-image-4">
+                    </div>
+                    <div class="instagram-image instagram-image-5">
+                    </div>
+                    <div class="instagram-image instagram-image-6">
+                    </div>
+                </div>
+                <div class="col-sm-4 col-12 d-flex align-items-center animation-block animation-block-top">
+                    <div class="text-center text-lg-start mt-4">
+                        <h1><strong>Instagram</strong></h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Donec ex felis, dapibus sed urna in, placerat volutpat odio.</p>
+                        <h2 class="fst-italic text-main-info pt-4"><strong>#BooksForEver</strong></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Blog Block -->
+    <div class="container-fluid pt-140 pb-140">
+        <div class="text-center animation-block">
+            <h1><strong>Latest News</strong></h1>
+            <h5 class="text-main-info">Our Shop Blog</h5>
+        </div>
+        <div class="row gy-4 justify-content-center mt-4 px-1">
+            {% for post in news %}
+            <div class="col-lg-3 col-8 mx-3 card-news card-{{forloop.counter}} animation-block animation-block-top">
+                <div class="rounded-3 overflow-hidden position-relative">
+                    <a href="{% url 'post' post.slug_news %}">
+                        <img src="{{post.photo.url}}" class="img-fluid img-scale">
+                    </a>
+                    <div class="bg-white position-absolute bottom-0 start-0 rounded mb-3 px-3 py-2 small ms-3">
+                        <span class="text-muted">{{post.time_update|date:'d M Y'}}</span>
+                    </div>
+                </div>
+                <div class="pt-4 px-3">
+                    <h5 class="mb-2"><strong>{{post.title}}</strong></h5>
+                    <p class="text-muted">{{post.mini_content}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Parallax Block -->
+    <div class="parallax parallax-bg-second">
+        <div class="parallax-background d-flex align-items-center justify-content-center">
+            <div class="text-center animation-block">
+                <span class="parallax-text"><strong>BookStore</strong></span>
+                <h2 class="text-white"><strong>Favorite Works and Favorite Stories</strong></h2>
+            </div>
+        </div>
+    </div>
+    <!-- Popular Authors Block -->
+    <div class="container-fluid pt-140 pb-140">
+        <div class="text-center animation-block">
+            <h1><strong>Popular Authors</strong></h1>
+            <h5 class="text-main-info">The World's Best Authors</h5>
+        </div>
+        <div class="row px-5 g-2 mt-5 text-center">
+            {% for author in authors %}
+            <div class="col-lg-3 col-sm-6 col-12 mb-4 pt-5 pb-5 card-author animation-block card-{{forloop.counter}}">
+                <a class="text-main-info text-decoration-none" href="{% url 'category' 'author' author.pk %}"><img src="{{author.photo.url}}" class="author-img"></a>
+                <h4 class="pt-4"><strong>{{author.name}}</strong></h4>
+                <p class="text-muted">World Famous Author</p>
+                <a class="btn card-btn-cl text-decoration-none" href="{% url 'category' 'author' author.slug %}">Visit Author Page</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script src="{% static 'main/js/sale_time.js' %}"></script>
+<script src="{% static 'main/js/animation-scroll.js' %}"></script>
+{% endblock %}

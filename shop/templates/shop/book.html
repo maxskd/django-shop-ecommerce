@@ -1,0 +1,128 @@
+{% extends 'shop/layout.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'shop/css/book.css' %}">
+    <div class="container">
+        <div class="row py-3 justify-content-center">
+            <!-- Book Photo Block -->
+            <div class="col-xl-5 text-center mb-5">
+                <div class="book-img mt-3">
+                    <img src="{{book.photo_of_book.url}}" id="book-img-id" class="img-fluid">
+                </div>
+            </div>
+            <!-- Main Information Block -->
+            <div class="col-xl-7 justify-content-center mb-5 px-4 book-info">
+                <!-- Share and Back Icons -->
+                <div class="mb-3 mt-3 d-flex align-items-center justify-content-between">
+                    <a href="{% url 'shop' %}" class="share-icon"><i class="bi bi-arrow-left"></i></a>
+                    <ul class="d-flex align-items-center">
+                        <li class="mx-1">
+                            <a href="#" class="share-icon"><i class="bi bi-facebook"></i></a>
+                        </li>
+                        <li class="mx-1">
+                            <a href="#" class="share-icon"><i class="bi bi-twitter"></i></a>
+                        </li>
+                        <li class="mx-1">
+                            <a href="#" class="share-icon"><i class="bi bi-instagram"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Rating Block -->
+                <div class="d-flex align-items-center mb-3 text-muted">
+                    <div class="mb-1">
+                        <i class="bi bi-star"></i>
+                        <i class="bi bi-star"></i>
+                        <i class="bi bi-star"></i>
+                        <i class="bi bi-star"></i>
+                        <i class="bi bi-star"></i>
+                    </div>
+                    <span class="px-3 mb-1">Current Rating</span>
+                </div>
+                <!-- Book Title and Author -->
+                <h1 class="mb-1 text-main-info"><strong>{{book.title}}</strong></h1>
+                <div class="mb-4">
+                    <small class="book-character-text">By (author):</small><a class="text-decoration-none book-character-link book-character-text" href="{% url 'category' 'author' book.author.slug %}"> {{book.author}}</a>
+                </div>
+                <!-- Price Book -->
+                <div class="mb-3">
+                    <h3><strong>{{book.price}}₸</strong></h3>
+                </div>
+                <!-- Content Book -->
+                <h5 class="mb-4">
+                    {{book.mini_content}}
+                </h5>
+                <!-- Add in Cart Button -->
+                {% if book.number_of_books > 0 %}
+                <div class="mb-3">
+                    <a class="btn btn-lg card-btn-cl update-cart" data-book="{{book.pk}}" data-action="add">Add in Cart</a>
+                </div>
+                {% else %}
+                <div class="mb-3">
+                    <h3 class="text-muted"><strong>Unfortunately this item is out of stock</strong></h3>
+                </div>
+                {% endif %}
+                <!-- More Info About Book -->
+                <ul class="mb-4 ul-list">
+                    <li class="mb-1">
+                        <span>Genre:</span>
+                        <a href="{% url 'category' 'genre' book.genre.slug %}" class="text-muted text-decoration-none">{{book.genre}}</a>
+                    </li>
+                    <li class="mb-1">
+                        <span>Publisher:</span>
+                        <a href="{% url 'category' 'publisher' book.publisher.slug %}" class="text-muted text-decoration-none">{{book.publisher}}</a>
+                    </li>
+                    <li class="mb-1">
+                        <span>Availability:</span>
+                        {% if book.number_of_books >= 1 %}
+                        <a class="text-muted text-decoration-none">In Stock</a>
+                        {% else %}
+                        <a class="text-muted text-decoration-none">Not Available</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Additional Information Block -->
+        <div class="row mt-2 px-4 additional-info">
+            <div class="col-lg-8 mb-5">
+                <h1>More About Book</h1>
+                <hr>
+                <h5>{{book.content}}</h5>
+            </div>
+            <div class="col-lg-4 mb-5">
+                <h1>Full Information</h1>
+                <hr>
+                <ul>
+                    <li class="my-2">
+                        <h5>Author: <a href="{% url 'category' 'author' book.author.slug %}" class="text-muted text-decoration-none">{{book.author}}</a></h5>
+                    </li>
+                    <li class="my-2">
+                        <h5>Genre: <a href="{% url 'category' 'genre' book.genre.slug %}" class="text-muted text-decoration-none">{{book.genre}}</a></h5>
+                    </li>
+                    <li class="my-2">
+                        <h5>Publisher: <a href="{% url 'category' 'publisher' book.publisher.slug %}" class="text-muted text-decoration-none">{{book.publisher}}</a></h5>
+                    </li>
+                    <li class="my-2">
+                        <h5>Country: <a href="{% url 'category' 'country' book.country.slug %}" class="text-muted text-decoration-none">{{book.country}}</a></h5>
+                    </li>
+                    <li class="my-2">
+                        <h5>Date of Published: <a class="text-muted text-decoration-none">{{book.year_of_published|date:'m-Y'}}</a></h5>
+                    </li>
+                    <li class="my-2">
+                        <h5>Number of Pages: <a class="text-muted text-decoration-none">{{book.number_of_pages}}</a></h5>
+                    </li>
+                    <li class="my-2">
+                        <h5>Availability:
+                            {% if book.number_of_books >= 1 %}
+                                <a class="text-muted text-decoration-none">In Stock</a>
+                            {% else %}
+                                <a class="text-muted text-decoration-none">Not Available</a>
+                            {% endif %}
+                        </h5>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

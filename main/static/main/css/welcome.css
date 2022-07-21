@@ -1,0 +1,215 @@
+/* Common CSS */
+.img-scale {
+    transition: ease all 0.4s;
+}
+
+.img-scale:hover {
+    transform: scale(1.1);
+    transition: ease all 0.4s;
+}
+
+.text-shop {
+    color: var(--first-light-color);
+}
+
+.text-shop:hover {
+    color: var(--first-light-color-hover);
+}
+
+.text-white {
+    color: #fef9f8;
+}
+
+.pt-40 {
+    padding-top: 40px;
+}
+
+.pt-140 {
+    padding-top: 140px;
+}
+
+.pb-140 {
+    padding-bottom: 140px;
+}
+
+/* Benefits Block */
+.benefit-img {
+    height: 500px;
+}
+
+/* Parallax Block */
+.parallax{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+.parallax-bg-first {
+    background-image: url("../img/parallax-bg-1.jpg");
+}
+
+.parallax-bg-second {
+    background-image: url("../img/parallax-bg-2.jpg");
+}
+
+.parallax-background {
+    background-color: var(--light-color-opacity);
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+}
+
+.parallax-text {
+    color: #fef9f8;
+    font-size: 14vw;
+    padding-bottom: 0;
+}
+
+/* Top Sale Block */
+.sale-badge {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    text-align: center;
+    position: absolute;
+    background-color: var(--secondary-color);
+    right: 0;
+    top: 0;
+    padding-top: 22px;
+    color: var(--primary-color);
+    box-shadow: 0px 0px 30px 6px rgba(116, 122, 128, 0.4);
+}
+
+.sale-left-block {
+    line-height: 90px;
+    text-decoration: underline;
+    text-decoration-color: var(--first-light-color);
+    text-underline-offset: 7px;
+}
+
+.container-countdown {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+/* Instagram Block */
+.instagram-image {
+    width: 33.33%;
+    float: left;
+    height: 261px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.instagram-image-1 {
+    background-image: url(https://i.pinimg.com/originals/f9/b5/06/f9b50630ff3a81b91fbd962cae737f82.jpg);
+}
+
+.instagram-image-2 {
+    background-image: url(https://api.polka.academy/storage/post/845/mobile_picture-923e6fb8086cdcd8ad0d1dbc0f3a1614.jpg);
+}
+
+.instagram-image-3 {
+    background-image: url(https://literaguru.ru/wp-content/uploads/2018/09/bookshelves-932780_960_720.jpg);
+}
+
+.instagram-image-4 {
+    background-image: url(https://litrekon.ru/wp-content/uploads/2020/12/7cb7d77b78257a824c3fe7bc568d1e8f-2.jpg);
+}
+
+.instagram-image-5 {
+    background-image: url(https://media.istockphoto.com/photos/stack-of-old-books-in-black-and-white-tones-copyspace-for-your-text-picture-id1030883506?k=20&m=1030883506&s=612x612&w=0&h=XIV2OBUZZX81kOV0X0cBrOxQ8dbz9ONyLZi4lNdcqG4=);
+}
+
+.instagram-image-6 {
+    background-image: url(https://wallpaperaccess.com/full/4787502.jpg);
+}
+
+@media only screen and (max-width: 767px) {
+    .instagram-image {
+        width: 50%;
+    }
+}
+
+.instagram-block {
+    box-sizing: border-box;
+}
+
+/* Blog Block */
+.card-news {
+    transition: 0.7s;
+    visibility: visible;
+    box-shadow: 0px 0px 31px 6px rgba(93, 100, 105, 0.2);
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 5px;
+}
+
+.card-news:hover {
+    transform: translateY(-5%);
+    transition: 0.7s;
+}
+
+/* Popular Authors Block */
+.card-author {
+    border-radius: 5px;
+}
+
+.card-1.element-show {
+    transition-delay: 0.5s;
+}
+
+.card-2.element-show {
+    transition-delay: 0.8s;
+}
+
+.card-3.element-show {
+    transition-delay: 1.1s;
+}
+
+.card-4.element-show {
+    transition-delay: 1.4s;
+}
+
+.author-img {
+    border-radius: 50%;
+    width: 182px;
+    height: 182px;
+}
+
+/* Show elements Animation */
+.element-show  {
+    transition: 2s;
+}
+
+.animation-block {
+    opacity: 0;
+}
+
+.animation-block-right {
+    opacity: 0;
+    transform: translatex(-100px);
+}
+
+.animation-block-left {
+    opacity: 0;
+    transform: translatex(100px);
+}
+
+.animation-block-top {
+    opacity: 0;
+    transform: translateY(-50px);
+}
+
+.animation-block-bottom {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.animation-block-right.element-show, .animation-block-left.element-show, .animation-block-top.element-show, .animation-block-bottom.element-show {
+    transform: translatex(0);
+}

@@ -1,0 +1,154 @@
+{% extends 'shop/layout.html' %}
+{% load static %}
+{% load shop_tags %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'shop/css/category.css' %}">
+<link rel="stylesheet" href="{% static 'shop/css/shop.css' %}">
+<!-- Category Type Block -->
+<div class="container container-category px-3 py-2">
+    <div class="row py-3">
+        {% if type_filter == 'top' %}
+        <div class="col text-md-start text-center text-main-info text-animation-top">
+            <h4>The most popular Books of the World! World Bestsellers and Best Books</h4>
+        </div>
+        {% elif type_filter == 'new' %}
+        <div class="col text-md-start text-center text-main-info text-animation-top">
+            <h4>New Arrival in our Shop!</h4>
+        </div>
+        {% else %}
+        <h2 class="text-main-info text-md-start text-center text-animation-top"><strong>{{info_about_category}}</strong></h2>
+            <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2 text-center mb-3">
+                <img src="{{info_about_category.photo.url}}" class="avatar-info-cl">
+            </div>
+        <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-10 category-info px-5">
+            <p>{{info_about_category.info}}</p>
+        </div>
+        {% endif %}
+    </div>
+    <!-- Filtration Block -->
+    <div class="d-flex justify-content-between mt-4 filtration-block">
+        <div>
+            <h4>Filtration Result:</h4>
+        </div>
+        <div class="px-4 py-4 rounded" id="filter-block">
+            <a onclick="hideFilter()" id="filter-close"><i class="bi bi-x-lg"></i></a>
+            <h5 class="text-center"><strong>Filter Tags</strong></h5>
+            <form method="get" class="row mt-4 text-center">
+                <div class="col-12">
+                    <span>Search by Name</span>
+                    <input class="mt-1 form-control" type="search" name="title-contains" placeholder="Write title here">
+                </div>
+                {% if type_filter != 'author' %}
+                <div class="col-12 mt-4">
+                    <span>Search by Author</span>
+                    {{ books_filter.form.author }}
+                </div>
+                {% endif %}
+                {% if type_filter != 'genre' %}
+                <div class="col-12 mt-4">
+                    <span>Search by Genre</span>
+                    {{ books_filter.form.genre }}
+                </div>
+                {% endif %}
+                {% if type_filter != 'country' %}
+                <div class="col-12 mt-4">
+                    <span>Search by Country</span>
+                    {{ books_filter.form.country }}
+                </div>
+                {% endif %}
+                {% if type_filter != 'publisher' %}
+                <div class="col-12 mt-4">
+                    <span>Search by Publisher</span>
+                    {{ books_filter.form.publisher }}
+                </div>
+                {% endif %}
+                <div class="col-12 mt-4 mb-3">
+                    <span>Order By</span>
+                    {{ books_filter.form.ordering }}
+                </div>
+                <button type="submit" class="btn btn-filter">Search <i class="bi bi-search"></i></button>
+                </form>
+        </div>
+        <button class="btn btn-filter" onclick="showFilter()"><i class="bi bi-funnel"></i></button>
+    </div>
+    <div class="row row-flex pt-1 mx-2 card-block">
+        <!-- Book Card Block -->
+        {% for b in books %}
+        <div class="col-lg-3 col-md-4 col-sm-6 px-2 mb-4 pt-3">
+            <div class="card card-book-cl">
+                <!-- Badge Block -->
+                {% if b.number_of_books >= 10 %}
+                <span class="text-center badge-book">Top</span>
+                {% elif b.number_of_books < 10 and b.number_of_books > 0 %}
+                <span class="text-center badge-book" style="visibility: hidden;">1</span>
+                {% elif b.number_of_books <= 0 %}
+                <span class="text-center badge-none-book col-3 col-sm-6 col-md-6 col-lg-6 col-xl-5">Out Of Stock</span>
+                {% endif %}
+                <!-- Block Img Block -->
+                <a href="{% url 'book' b.slug_book %}" class="d-block overflow-hidden card-book-img">
+                    <img src="{{b.photo_of_book.url}}" class="img-card">
+                </a>
+                <!-- Block Info Block -->
+                {% if b.number_of_books > 0 %}
+                <div class="card-body">
+                    <a href="{% url 'category' 'genre' b.genre.slug %}" class="text-muted card-link">{{b.genre}}</a>
+                    <h3>
+                        <a href="{% url 'book' b.slug_book %}" class="card-link">{{b.title}}</a>
+                    </h3>
+                    <div class="d-flex justify-content-between text-end">
+                        <div>
+                            <span>{{b.price}}₸</span>
+                        </div>
+                        <a href="{% url 'category' 'author' b.author.slug %}" class="card-link">{{b.author}}</a>
+                    </div>
+                </div>
+                <!-- Add to Cart Button -->
+                <div class="card-body card-body-hidden">
+                    <button class="btn d-block w-100 mb-2 update-cart book-card-hidden-btn" data-book="{{b.pk}}" data-action="add"><i class="bi bi-cart"></i>Add to the Cart</button>
+                </div>
+                {% else %}
+                <div class="card-body">
+                    <a href="{% url 'category' 'genre' b.genre.slug %}" class="text-muted card-link">{{b.genre}}</a>
+                    <h3>
+                        <a href="{% url 'book' b.slug_book %}" class="card-link card-book-title text-muted">{{b.title}}</a>
+                    </h3>
+                    <div class="d-flex justify-content-between text-end">
+                        <div>
+                            <span class="text-muted">{{b.price}}₸</span>
+                        </div>
+                        <a href="{% url 'category' 'author' b.author.slug %}" class="card-link text-muted">{{b.author}}</a>
+                    </div>
+                </div>
+                <div class="card-body card-body-hidden text-center">
+                    <h5 class="d-block w-100 mb-2 text-muted">This item is out of stock</h5>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        {% if not books %}
+        <div class="d-flex align-items-center justify-content-center text-center" style="height: 70vh;">
+            <h3 class="text-muted">Unfortunately, no products were found for this specified filters.</h3>
+        </div>
+        {% endif %}
+        <!-- Pagination Block -->
+        {% if page_obj.has_other_pages %}
+            <ul class="pagination justify-content-center">
+                {% for p in page_obj.paginator.page_range %}
+                    {% if page_obj.number == p %}
+                        <li class="page-item active d-none d-sm-block pagination-li-cl badge-top">
+                        <li class="page-item active d-none d-sm-block pagination-li-cl badge-top">
+                            <a class="page-link-pagination-active" href="{% create_url p 'page' request.GET.urlencode %}">{{ p }}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item d-none d-sm-block pagination-li-cl">
+                            <a class="page-link-pagination" href="{% create_url p 'page' request.GET.urlencode %}">{{ p }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</div>
+<script src="{% static 'shop/js/filter_toggle.js' %}"></script>
+{% endblock %}

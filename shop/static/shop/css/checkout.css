@@ -1,0 +1,64 @@
+
+.hidden {
+    display: none;
+}
+
+.fs-20 {
+    font-size: 20px;
+}
+
+/* Containers Block */
+.container-checkout {
+    max-width: 100%;
+    animation: news-change-two-percent 1.5s ease-in-out;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: var(--primary-color);
+    border-radius: 15px;
+}
+
+/* Cart Block */
+.badge-cart {
+    background-color: var(--first-light-color);
+    border-radius: 10rem;
+}
+
+
+/* Product Block */
+.list-group-item {
+    background: transparent;
+    border-color: #ced4da;
+}
+
+.img-cart {
+    max-width: 42px;
+}
+
+.text-cart {
+    color: var(--secondary-color);
+}
+
+.strong-cart {
+    color: var(--first-light-color);
+}
+
+/* User Info Block */
+.profile-link {
+    color: var(--first-light-color);
+}
+
+.profile-link:hover {
+    color: var(--first-light-color-hover);
+}
+
+/* Payment Button */
+.btn-payment {
+    background-color: #0070ba;
+    color: var(--primary-color);
+}
+.btn-payment:hover {
+    background-color: #0264b0;
+    color: var(--primary-color);
+}

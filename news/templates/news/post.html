@@ -1,0 +1,62 @@
+{% extends 'shop/layout.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'news/css/post.css' %}">
+<!-- Post Content Block -->
+<div class="container-post px-5">
+    <div class="row">
+        <div class="col-xl-4 d-xl-block d-none">
+            <div class="mt-5">
+                <!-- More News Blog -->
+                <h1 class="text-main-info post-content">Recent News</h1>
+                {% for p in posts %}
+                <div class="news-card mt-4 py-2 px-2 border-right-0">
+                    <a href="{% url 'post' p.slug_news %}" class="row text-decoration-none news-link">
+                        <div class="col-4">
+                            <img src="{{p.photo.url}}" class="img-fluid h-100">
+                        </div>
+                        <div class="col-8">
+                            <h5>{{p.title}}</h5>
+                            <p class="text-muted">Created: {{p.time_update|date:'d.m P'}}</p>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-xl-8">
+            <div class="post-content">
+                <!-- Post Title with Info Block -->
+                <h1 class="text-center post-title text-main-info mb-3 mt-5">{{post.title}}</h1>
+                <h4 class="post-mini-content mb-3">{{post.mini_content}}</h4>
+                <div class="d-flex mb-4 justify-content-between">
+                    <h5 class="text-muted">Create time: {{post.time_create}}</h5>
+                    <h5 class="text-muted">Update time: {{post.time_update}}</h5>
+                </div>
+            </div>
+            <!-- News Photo Block -->
+            <div class="post-photo mb-5">
+                <img src="{{post.photo.url}}" class="img-fluid">
+            </div>
+            <!-- News Content Block -->
+            <h3 class="post-content">{{post.content}}</h3>
+            <div class="d-flex align-items-center justify-content-between pb-5 mt-4">
+                <a href="{% url 'news' %}" class="btn btn-lg card-btn-cl">Back to News</a>
+                <div class="d-flex justify-content-center align-items-center px-3">
+                    <ul class="d-flex align-items-center">
+                        <li class="mx-1 mt-3">
+                            <a href="#" class="share-icon"><i class="bi bi-facebook"></i></a>
+                        </li>
+                        <li class="mx-1 mt-3">
+                            <a href="#" class="share-icon"><i class="bi bi-twitter"></i></a>
+                        </li>
+                        <li class="mx-1 mt-3">
+                            <a href="#" class="share-icon"><i class="bi bi-instagram"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

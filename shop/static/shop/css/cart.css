@@ -1,0 +1,121 @@
+.text-cart-white {
+    color: #fef9f8;
+}
+
+.mt-6 {
+    margin-top: -5.475rem;
+}
+
+.mb-minus-2 {
+    margin-bottom: -2%;
+}
+
+/* Main Cart Block */
+.container-cart {
+    background-color: var(--first-light-color);
+    padding-bottom: 6.375rem;
+}
+
+/* Cart Info Block */
+.btn-cart-back {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-cart-back:hover {
+    color: var(--first-light-color);
+    background-color: var(--primary-color);
+}
+
+/* Cart Errors Block */
+
+.cart-error {
+    animation: news-change-two-percent 1s ease-in-out;
+}
+
+/* Cart Photo and Info Block */
+.img-cart {
+    margin-right: 1.5rem;
+    border-radius: 12px;
+    animation: block-change-left 1s ease-in-out;
+}
+
+.book-link {
+    color: var(--secondary-color);
+}
+
+.book-link:hover {
+    color: var(--first-light-color);
+}
+
+/* Cart Change Quantity Block */
+.btn-quantity {
+    border: 1px solid var(--first-light-color);
+    width: 100%;
+}
+
+.btn-quantity:hover {
+    background-color: var(--first-light-color);
+    color: #fef9f8;
+}
+
+/* Cart Subtotal Block */
+.cart-cont {
+    margin-top: -6.875rem;
+    background-color: var(--primary-color);
+    border-radius: 12px;
+    box-shadow: 0px 15px 28px 6px rgba(95, 100, 103, 0.2);
+}
+
+#total-price {
+    animation: fade-in 1s ease-in-out;
+}
+
+/* Accordion Button */
+.btn-accordion:focus {
+    border-color: none;
+    box-shadow: none;
+}
+
+.btn-accordion:hover {
+    color: var(--first-light-color);
+}
+
+.text-accordion {
+    font-size: 22px;
+    margin-bottom: 0;
+}
+
+/* Accordion Content */
+.btn-promocode {
+    width: 100%;
+    border: 1px solid var(--secondary-color);
+}
+
+.btn-promocode:hover {
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+}
+
+/* Checkout Button */
+.btn-checkout {
+    color: var(--primary-color);
+    background-color: var(--first-light-color);
+}
+
+.btn-checkout:hover {
+    color: var(--primary-color);
+    background-color: var(--first-light-color-hover);
+}
+
+/* Animation */
+@keyframes block-change-left {
+    from {
+        transform: translateX(-7%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}

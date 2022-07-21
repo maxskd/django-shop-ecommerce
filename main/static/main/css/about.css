@@ -1,0 +1,41 @@
+/* About Us Info Block */
+.container-about {
+    min-height: 100vh;
+}
+
+/* About Us Animations */
+.container-animation {
+    animation: fade-in 1.5s ease-in-out;
+}
+
+.text-animation {
+    animation: block-change-bottom 1.5s ease-in-out;
+}
+
+.text-main-animation {
+    animation: fade-in 1.5s ease-in-out;
+}
+
+/* Contacts Block with Animation */
+.card-body-about-cl  {
+    transition: 1s ease-in-out;
+    cursor: default;
+}
+
+.card-body-about-cl:hover {
+    transition: 1s ease-in-out;
+    color: var(--first-light-color);
+    transform: translateY(-10%);
+}
+
+/* Animation */
+@keyframes block-change-bottom {
+    from {
+        transform: translateY(10%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}

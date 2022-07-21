@@ -1,0 +1,57 @@
+/* Contact Us Block */
+.container-contact {
+    min-height: 100vh;
+}
+
+.container {
+    background-color: var(--primary-color);
+    border-radius: 20px;
+    animation: news-change-two-percent 1.5s ease-in-out;
+}
+
+.card {
+    background-color: var(--primary-color);
+    border: none;
+}
+
+/* Contact Form Block */
+.form-label {
+    animation: fade-in 1.5s ease-in-out;
+    font-size: 28px;
+}
+
+.form-control {
+    font-size: 20px;
+}
+
+/* Info Block */
+.text-additional {
+    animation: block-change-right 1.5s ease-in-out;
+}
+
+.form-contact {
+    animation: block-change-left 1.5s ease-in-out;
+}
+
+/* Animations */
+@keyframes block-change-right {
+    from {
+        transform: translateX(10%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes block-change-left {
+    from {
+        transform: translateX(-10%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}

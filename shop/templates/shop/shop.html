@@ -1,0 +1,162 @@
+{% extends 'shop/layout.html' %}
+{% load shop_tags %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'shop/css/shop.css' %}">
+<!-- Shop Info Block -->
+<div class="container main-page-dv">
+    <div class="row align-items-center justify-content-center text-lg-start">
+        <div class="col-lg-5 col-md-8 col-sm-10">
+            <h1 class="mb-1 pt-5 text-center" id="main-title-id">Favourite Books of the <strong>July</strong>
+                <h5 class="mx-3 title-text text-center">Welcome to our Shop</h5>
+            </h1>
+        </div>
+        <div class="col-lg-6 col-md-8 col-sm-10 main-page-circle">
+            <img class="img-fluid rounded-3 my-5" id="main-img-id" src="{% static 'shop/img/shop-books-1.png' %}">
+        </div>
+    </div>
+</div>
+<!-- Popular Books Block -->
+<div class="container pt-5">
+    <div class="row row-flex mx-n2">
+        <div class="d-flex justify-content-between border-bottom shop-popular">
+            <h2 class="mt-5">Popular</h2>
+            <div class="pt-5">
+                <a href="{% url 'category' 'top' 1 %}" class="btn btn-show-more">More Books<i class="bi bi-chevron-right"></i></a>
+            </div>
+        </div>
+        <!-- Book Block -->
+        {% for b in books %}
+        <div class="col-lg-3 col-md-4 col-sm-6 px-2 mb-4 pt-5">
+            <div class="card card-book-cl">
+                <!-- Book Badge Block -->
+                {% if b.number_of_books >= 10 %}
+                <span class="text-center badge-book">Top</span>
+                {% elif b.number_of_books < 10 and b.number_of_books > 0 %}
+                <span class="text-center badge-book" style="visibility: hidden;">1</span>
+                {% elif b.number_of_books <= 0 %}
+                <span class="text-center badge-none-book col-3 col-sm-6 col-md-6 col-lg-6 col-xl-5">Out Of Stock</span>
+                {% endif %}
+                <!-- Block Img Block -->
+                <a href="{% url 'book' b.slug_book %}" class="d-block overflow-hidden card-book-img">
+                    <img src="{{b.photo_of_book.url}}" class="img-card">
+                </a>
+                <!-- Book Info Block -->
+                {% if b.number_of_books > 0 %}
+                <div class="card-body">
+                    <a href="{% url 'category' 'genre' b.genre.slug %}" class="text-muted card-link">{{b.genre}}</a>
+                    <h3>
+                        <a href="{% url 'book' b.slug_book %}" class="card-link card-book-title">{{b.title}}</a>
+                    </h3>
+                    <div class="d-flex justify-content-between text-end">
+                        <div>
+                            <span>{{b.price}}₸</span>
+                        </div>
+                        <a href="{% url 'category' 'author' b.author.slug %}" class="card-link">{{b.author}}</a>
+                    </div>
+                </div>
+                <!-- Add to Cart Button -->
+                <div class="card-body card-body-hidden">
+                    <button class="btn d-block w-100 mb-2 update-cart book-card-hidden-btn" data-book="{{b.pk}}" data-action="add"><i class="bi bi-cart"></i>Add to the Cart</button>
+                </div>
+                {% else %}
+                <div class="card-body">
+                    <a href="{% url 'category' 'genre' b.genre.slug %}" class="text-muted card-link">{{b.genre}}</a>
+                    <h3>
+                        <a href="{% url 'book' b.slug_book %}" class="card-link card-book-title text-muted">{{b.title}}</a>
+                    </h3>
+                    <div class="d-flex justify-content-between text-end">
+                        <div>
+                            <span class="text-muted">{{b.price}}₸</span>
+                        </div>
+                        <a href="{% url 'category' 'author' b.author.slug %}" class="card-link text-muted">{{b.author}}</a>
+                    </div>
+                </div>
+                <div class="card-body card-body-hidden text-center">
+                    <h5 class="d-block w-100 mb-2 text-muted">This item is out of stock</h5>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Shop Best Block -->
+<div class="container container-shop-best mt-5">
+    <div class="row align-items-center justify-content-center text-lg-start">
+        <div class="py-4 px-5 col-md-6">
+            <h5 class="text-left text-light">World Bestsellers</h5>
+            <h1 class="text-left text-light pb-1">The best offers...</h1>
+            <a href="{% url 'category' 'top' 1 %}" class="btn btn-lg btn-dark text-light">See More</a>
+        </div>
+        <div class="col-md-4">
+            <img class="img-fluid rounded-3 my-5" id="img-id" loading="lazy" src="{% static 'shop/img/shop-books-2.png' %}">
+        </div>
+    </div>
+</div>
+<!-- New Books Blog -->
+<div class="container pt-5">
+    <div class="row row-flex mx-n2">
+        <div class="d-flex justify-content-between border-bottom">
+            <h2 class="mt-5">New Bestsellers</h2>
+            <div class="pt-5">
+                <a href="{% url 'category' 'new' 1 %}" class="btn btn-show-more">More books<i class="bi bi-chevron-right"></i></a>
+            </div>
+        </div>
+        {% for b in new_books %}
+        <!-- Book Block -->
+        <div class="col-lg-3 col-md-4 col-sm-6 px-2 mb-4 pt-5">
+            <div class="card card-book-cl">
+                <!-- Badge Block -->
+                {% if b.number_of_books >= 10 %}
+                <span class="text-center badge-book">Top</span>
+                {% elif b.number_of_books < 10 and b.number_of_books > 0 %}
+                <span class="text-center badge-book" style="visibility: hidden;">1</span>
+                {% elif b.number_of_books <= 0 %}
+                <span class="text-center badge-none-book col-3 col-sm-6 col-md-6 col-lg-6 col-xl-5">Out Of Stock</span>
+                {% endif %}
+                <!-- Block Img Block -->
+                <a href="{% url 'book' b.slug_book %}" class="d-block overflow-hidden card-book-img">
+                    <img src="{{b.photo_of_book.url}}" class="img-card">
+                </a>
+                <!-- Block Info Block -->
+                {% if b.number_of_books > 0 %}
+                <div class="card-body">
+                    <a href="{% url 'category' 'genre' b.genre.slug %}" class="text-muted card-link">{{b.genre}}</a>
+                    <h3>
+                        <a href="{% url 'book' b.slug_book %}" class="card-link">{{b.title}}</a>
+                    </h3>
+                    <div class="d-flex justify-content-between text-end">
+                        <div>
+                            <span>{{b.price}}₸</span>
+                        </div>
+                        <a href="{% url 'category' 'author' b.author.slug %}" class="card-link">{{b.author}}</a>
+                    </div>
+                </div>
+                <!-- Add to Cart Button -->
+                <div class="card-body card-body-hidden">
+                    <button class="btn d-block w-100 mb-2 update-cart book-card-hidden-btn" data-book="{{b.pk}}" data-action="add"><i class="bi bi-cart"></i>Add to the Cart</button>
+                </div>
+                {% else %}
+                <div class="card-body">
+                    <a href="{% url 'category' 'genre' b.genre.slug %}" class="text-muted card-link">{{b.genre}}</a>
+                    <h3>
+                        <a href="{% url 'book' b.slug_book %}" class="card-link card-book-title text-muted">{{b.title}}</a>
+                    </h3>
+                    <div class="d-flex justify-content-between text-end">
+                        <div>
+                            <span class="text-muted">{{b.price}}₸</span>
+                        </div>
+                        <a href="{% url 'category' 'author' b.author.slug %}" class="card-link text-muted">{{b.author}}</a>
+                    </div>
+                </div>
+                <div class="card-body card-body-hidden text-center">
+                    <h5 class="d-block w-100 mb-2 text-muted">This item is out of stock</h5>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

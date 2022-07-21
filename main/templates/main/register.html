@@ -1,0 +1,60 @@
+{% extends 'shop/layout.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/login.css' %}">
+<!-- Register Block -->
+<div class="container container-login mb-1">
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-10 col-md-8 col-lg-7 col-xl-5">
+            <!-- Register Card Block -->
+            <div class="card">
+                <div class="card-body p-5 text-center">
+                    <h2 class="mb-3 text-main-info">Register</h2>
+                    <div class="icon d-flex align-items-center justify-content-center mb-3">
+                        <i class="bi bi-person"></i>
+                    </div>
+                    <p class="login-text">Already Registered? <a href="{% url 'login' %}" class="text-center text-decoration-none login-href">Sign In</a></p>
+                    <!-- Register Form Block -->
+                    <form method="post" class="px-5 mt-2 register-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="login-form-icon d-flex align-items-center justify-content-center">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <input type="text" class="form-control" name="username" placeholder="Your Login" autocomplete="off" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="login-form-icon d-flex align-items-center justify-content-center">
+                                <i class="bi bi-envelope-fill"></i>
+                            </div>
+                            <input type="email" class="form-control email-input" name="email" placeholder="Your Email" autocomplete="off" required>
+                        </div>
+                        <div class="form-group d-flex">
+                            <div class="login-form-icon d-flex align-items-center justify-content-center">
+                                <i class="bi bi-key-fill"></i>
+                            </div>
+                            <input type="password" class="form-control password1" name="password1" placeholder="Your password" autocomplete="off" required>
+                        </div>
+                        <div class="form-group d-flex">
+                            <div class="login-form-icon d-flex align-items-center justify-content-center">
+                                <i class="bi bi-shield-lock-fill"></i>
+                            </div>
+                            <input type="password" class="form-control password2" name="password2" placeholder="Your password again" autocomplete="off" required>
+                        </div>
+                        <div class="form-group pt-2">
+                            <p>By registering here you agree to the<a href="https://en.wikipedia.org/wiki/Privacy_policy" class="login-href text-decoration-none"> privacy policy</a></p>
+                        </div>
+                        <!-- Register Errors Block -->
+                        {% for message in messages %}
+                            <p class="login-error login-text">{{ message }}</p>
+                        {% endfor %}
+                        <!-- Register Button -->
+                        <button class="btn btn-login btn-lg btn-block" type="submit">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'main/js/validate.js' %}"></script>
+{% endblock %}

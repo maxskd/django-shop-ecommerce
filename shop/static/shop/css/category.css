@@ -1,0 +1,172 @@
+/* Category Type Block */
+.container-category {
+    min-height: 100vh;
+}
+
+.text-animation-top {
+    animation: fade-in 1.5s ease-in-out;
+}
+
+.avatar-info-cl {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    animation: block-left 1.5s ease-in-out;
+}
+
+.category-info {
+    padding-top: 2%;
+    animation: block-right 1.5s ease-in-out;
+}
+
+/* Filtration Block */
+#filter-block {
+    display: none;
+    position: absolute;
+    background-color: var(--primary-color);
+    text-align: right;
+    z-index: 1;
+    width: 300px;
+    right: 5%;
+    box-shadow: -5px 7px 24px 10px rgba(95, 100, 103, 0.2);
+    animation: translate-by-y 1.5s;
+}
+
+#filter-close {
+    cursor: pointer;
+}
+
+#filter-close:hover {
+    color: var(--first-light-color);
+}
+
+.form-filter {
+    background: transparent;
+    color: var(--secondary-color);
+}
+
+.form-filter:focus {
+    background: transparent;
+    color: var(--first-light-color);
+    border-color: var(--first-light-color);
+    box-shadow: 0 0 0 0 rgba(0,123,255,0);
+}
+
+.btn-filter {
+    border: 1px solid var(--first-light-color);
+    color: var(--first-light-color);
+}
+
+.btn-filter:hover {
+    background-color: var(--first-light-color);
+    color: #fef9f8;
+}
+
+#id_ordering {
+    height: 48px;
+    color: var(--secondary-color);
+    background: transparent;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid var(--first-light-color);
+    padding-left: 30px;
+    padding-right: 0;
+    letter-spacing: 1px;
+    transition: all .2s ease-in-out;
+    font-size: 14px;
+}
+
+#id_ordering:focus {
+    border-color: var(--first-light-color);
+    box-shadow: 0 0 0 0 rgba(0,123,255,0);
+    background: transparent;
+    color: var(--first-light-color);
+    transition: border-color 1s;
+    border: none;
+}
+
+.form-control {
+    border: 1px solid (--secondary-color);
+    border-radius: 5px;
+}
+
+/* Book Card Block */
+.card-block, .filtration-block {
+    animation: fade-book 1.5s ease-in-out;
+}
+
+/* Pagination Block */
+.pagination-li-cl {
+    margin: 0 3px;
+}
+
+.page-link-pagination {
+    padding: 0.375rem 0.85rem;
+    position: relative;
+    display: block;
+    color: var(--secondary-color);
+    text-decoration: none;
+    background-color: var(--primary-color);
+    border-radius: 20%;
+}
+
+.page-link-pagination:hover {
+    background-color: var(--light-color-hover);
+    color: var(--secondary-color);
+}
+
+.page-link-pagination-active {
+    padding: 0.375rem 0.85rem;
+    position: relative;
+    display: block;
+    color: var(--primary-color);
+    text-decoration: none;
+    background-color: var(--first-light-color);
+    border-radius: 10%;
+}
+
+.page-link-pagination-active:hover {
+    background-color: var(--first-light-color-hover);
+    color: var(--primary-color);
+}
+
+/* Animations */
+@keyframes translate-by-y {
+    0% {
+        transform: translateY(-3%);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+
+@keyframes block-left {
+    0% {
+        transform: translateX(-10%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes block-right {
+    0% {
+        transform: translateX(4%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-book {
+    0% {
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}

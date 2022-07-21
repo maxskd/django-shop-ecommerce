@@ -1,0 +1,46 @@
+/* News Block */
+.container-news {
+    min-height: 100vh;
+}
+
+/* Text with animation */
+.news-text {
+    animation: card-change-fade-in 1.5s ease-in-out;
+}
+
+.sales-section-error {
+    padding-top: 25%;
+    transition: 1s ease-in-out;
+}
+
+.news-card-cl {
+    padding-top: 5%;
+    animation: news-card-change 1.5s ease-in-out;
+}
+/* News Cards Block */
+#card_news {
+    min-width: 300px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 0;
+    background-color: var(--primary-color);
+    box-shadow: -5px 7px 24px 10px rgba(95, 100, 103, 0.1);
+}
+
+#card-photo, #card-body {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+#card-photo-left-id {
+    height: 250px;
+}
+
+#card-title {
+    color: var(--secondary-color);
+}

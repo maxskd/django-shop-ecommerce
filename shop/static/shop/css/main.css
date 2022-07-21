@@ -1,0 +1,269 @@
+:root {
+    --primary-color: #fef9f8;
+    --secondary-color: #333;
+    --third-color: #f5eec2;
+    --first-light-color: #ed7966;
+    --first-light-color-hover: #d56c5b;
+    --light-color-hover: #fdf1ef;
+    --light-color-opacity: rgba(237, 121, 102, 0.85);
+}
+
+.darkmode {
+    --primary-color: #1f2021;
+    --secondary-color: #fafbfc;
+    --first-light-color: #69448E;
+    --first-light-color-hover: #7a4fa5;
+    --light-color-hover: #2A2B2D;
+    --light-color-opacity: rgba(105, 68, 142, 0.85);
+}
+
+html {
+    visibility: hidden;
+    overflow-x: hidden;
+    }
+
+body {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    font-family: 'Work Sans', sans-serif;
+}
+
+/* General CSS Code */
+h2 {
+    padding-bottom: 2%;
+}
+
+.text-main-info {
+    color: var(--first-light-color);
+}
+
+.form-control {
+    height: 48px;
+    color: var(--secondary-color);
+    font-size: 14px;
+    background: transparent;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid var(--first-light-color);
+    padding-left: 30px;
+    padding-right: 0;
+    letter-spacing: 1px;
+    transition: all .2s ease-in-out;
+    font-size: 20px;
+}
+
+.form-control:focus {
+    border-color: var(--first-light-color);
+    box-shadow: 0 0 0 0 rgba(0,123,255,0);
+    background: transparent;
+    color: var(--first-light-color);
+    transition: border-color 1s;
+}
+
+.btn {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+.btn:focus {
+    border-color: none;
+    box-shadow: none;
+}
+
+.card-btn-cl {
+    background-color: var(--first-light-color);
+    color: #fef9f8;
+}
+
+.card-btn-cl:hover {
+    background-color: var(--first-light-color-hover);
+    color: #fef9f8;
+}
+
+.card-btn-cl:focus {
+    background-color: var(--first-light-color-hover);
+    color: #fef9f8;
+}
+
+/* Navbar Block */
+.navbar {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    font-family: 'Work Sans', sans-serif;
+}
+
+/* Navbar Links Block */
+.nav-link {
+    font-size: 18px;
+}
+
+.nav-link, .navbar-toggler-icon, .nav-main-link {
+    color: var(--secondary-color);
+}
+
+.nav-link:hover {
+    color: var(--first-light-color);
+}
+
+/* Navbar Badges Block */
+.nav-link-circle {
+    position: relative;
+    width: 2.875rem;
+    height: 2.875rem;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 2.625rem;
+    background-color: var(--primary-color);
+    color: var(--first-light-color);
+    border: 1px solid var(--first-light-color);
+}
+
+.nav-link-circle:hover {
+    color: #fef9f8;
+    background-color: var(--first-light-color-hover);
+}
+
+.nav-link-counter {
+    position: absolute;
+    top: -0.3125rem;
+    right: -0.3125rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 1.25rem;
+    background-color: var(--secondary-color);
+    color: var(--primary-color)
+}
+
+/* Navbar User Info */
+.dropdown-item {
+    color: var(--secondary-color);
+}
+
+.dropdown-item:focus {
+    background-color: var(--first-light-color);
+}
+
+.dropdown-profile {
+    right: -55%;
+    top: 115%;
+}
+
+.nav-item-cl {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-right: 0.875rem;
+}
+
+.dropdown-nav {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.user-photo {
+    max-width: 40px;
+    border-radius: 50%;
+    margin-left: 4px;
+    height: 40px;
+}
+
+.user-non-photo {
+    width: 40px;
+    border-radius: 50%;
+    height: 40px;
+    background-color: var(--first-light-color);
+    color: #fef9f8;
+}
+
+.user-non-photo:hover {
+    background-color: var(--first-light-color-hover);
+}
+
+.user-avatar-none {
+    padding-left: 30%;
+}
+
+/* Footer Icons Block */
+#footer-btn-instagram:hover {
+    color: #bc2a8d;
+}
+
+#footer-btn-youtube:hover {
+    color: #c4302b;
+}
+
+#footer-btn-facebook:hover {
+    color: #34B7F1;
+}
+
+#footer-btn-twitter:hover {
+    color: #00acee;
+}
+
+#footer-btn-whatsapp:hover {
+    color: #00FF00;
+}
+
+/* Footer Info Block */
+#footer-info-bottom {
+    background-color: var(--first-light-color);
+    color: #fef9f8;
+}
+
+/* Animations */
+@keyframes fade-in {
+    0% {
+        transform: translateY(-10%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes card-change-fade-in {
+    0% {
+        transform: translateY(-10%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes news-card-change {
+    from {
+        transform: translateY(-10%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1
+    }
+}
+
+@keyframes news-change-two-percent {
+    from {
+        transform: translateY(-2%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1
+    }
+}
+
+@keyframes news-change-tventy-five-percent {
+    from {
+        transform: translateY(-15%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1
+    }
+}

@@ -1,0 +1,52 @@
+{% extends 'shop/layout.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/contact.css' %}">
+<!-- Contact Us Block -->
+<div class="container-contact d-flex align-items-center">
+    <div class="container">
+        <div class="card text-center">
+            <div class="row px-3 mb-5">
+                <h1 class="text-main-info mb-5 mt-5">Contact Us</h1>
+                <div class="col-12 col-lg-8">
+                    <!-- Contact Form Block -->
+                    <form method="POST" class="form-contact">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="subject-input" class="form-label">Topic</label>
+                                <input type="text" id="subject-input" name="message-subject" class="form-control" autocomplete="off" required>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="email-input" class="form-label">Your email address</label>
+                                <input type="email" id="email-input" name="message-email" class="form-control" autocomplete="off" required>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="message-input" class="form-label">Your review</label>
+                                <input type="text" name="message" id="message-input" class="form-control" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-lg card-btn-cl">Send Review</button>
+                        <div class="msg pt-3">
+                            {% for m in messages %}
+                            <h4 class="text-success">{{m}}</h4>
+                            {% endfor %}
+                        </div>
+                    </form>
+                </div>
+                <!-- Info Block -->
+                <div class="col-12 col-lg-4 text-muted">
+                    <div class="pt-3 text-additional">
+                        <h3>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae est varius,
+                            fringilla est in, rutrum urna. Integer auctor nec mauris a tincidunt. In et ipsum magna.
+                            Duis id velit tincidunt, dignissim tortor eu, faucibus sem.
+                            Nulla egestas justo in pretium condimentum.
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

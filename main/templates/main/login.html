@@ -1,0 +1,47 @@
+{% extends 'shop/layout.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/login.css' %}">
+<!-- Login Block -->
+<div class="container container-login mb-1">
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-10 col-md-8 col-lg-7 col-xl-5">
+            <!-- Login Card Block -->
+            <div class="card mt-2">
+                <div class="card-body p-5 text-center">
+                    <h2 class="mb-3 text-main-info">Login</h2>
+                    <div class="icon d-flex align-items-center justify-content-center mb-3">
+                        <i class="bi bi-person"></i>
+                    </div>
+                    <p class="login-text">Not a member? <a href="{% url 'register' %}" class="text-center text-decoration-none login-href">Sign Up</a></p>
+                    <!-- Login Form Block -->
+                    <form method="post" class="px-5 mt-4 login-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="login-form-icon d-flex align-items-center justify-content-center">
+                                <i class="bi bi-person-fill login-text"></i>
+                            </div>
+                            <input type="text" class="form-control" name="username" placeholder="Your login" autocomplete="off" required>
+                        </div>
+                        <div class="form-group d-flex">
+                            <div class="login-form-icon d-flex align-items-center justify-content-center">
+                                <i class="bi bi-key-fill login-text"></i>
+                            </div>
+                            <input type="password" class="form-control" name="password" placeholder="Your password" autocomplete="off" required>
+                        </div>
+                        <div class="form-group pt-2">
+                            <h6 class="text-decoration-none">By enter here, you agree to the privacy policy</h6>
+                        </div>
+                        <!-- Login Errors Block -->
+                        {% for message in messages %}
+                            <p class="login-error login-text">{{ message }}</p>
+                        {% endfor %}
+                        <!-- Login Button -->
+                        <button class="btn btn-login btn-lg btn-block" type="submit">Sign in</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

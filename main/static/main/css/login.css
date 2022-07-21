@@ -1,0 +1,82 @@
+/* Errors */
+.input-error {
+    border: 2px solid #ff684f;
+    border-radius: 2px;
+}
+
+.input-error:focus {
+    border-color: var(--first-light-color);
+    border: none;
+    border-bottom: 1px solid var(--first-light-color);
+}
+
+/* Login Block */
+.container-login {
+    background-color: var(--primary-color);
+    min-height: 100vh;
+}
+
+/* Login Card Block */
+.card {
+    background-color: var(--primary-color);
+    border: none;
+    animation: news-card-change 1.5s ease-in-out;
+}
+
+.icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    font-size: 40px;
+    margin: 0 auto;
+    background-color: var(--first-light-color);
+    color: #fef9f8;
+    animation: fade-in 1.5s ease-in-out;
+}
+
+.login-href {
+    color: var(--secondary-color);
+}
+
+.login-href:hover {
+    color: var(--first-light-color);
+    cursor: pointer;
+}
+
+/* Login Form Block */
+.login-form-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 20px;
+    height: 48px;
+    background: transparent;
+    font-size: 18px;
+    color: var(--secondary-color);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    position: relative;
+}
+/* Login Errors Block */
+.login-error {
+    color: var(--first-light-color);
+    font-size: 20px;
+}
+
+.login-text {
+    font-size: 25px;
+}
+
+/* Login Button */
+.btn-login {
+    background-color: var(--first-light-color);
+    color: #fef9f8;
+}
+
+.btn-login:hover {
+    background-color: var(--first-light-color-hover);
+    color: #fef9f8;
+}

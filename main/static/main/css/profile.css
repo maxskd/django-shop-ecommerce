@@ -1,0 +1,111 @@
+/* Container Profile Block */
+.container-profile {
+    background-color: var(--first-light-color);
+    max-width: 100%;
+    min-height: 100vh;
+}
+
+/* Container User Info Block */
+.card {
+    background-color: var(--primary-color);
+    border-radius: 20px;
+    animation: news-change-two-percent 1.5s ease-in-out;
+}
+
+.user-avatar {
+    animation: news-card-change 1.5s ease-in-out;
+}
+
+.user-none-avatar {
+    width: 200px;
+    height: 200px;
+    background-color: var(--first-light-color);
+    border-radius: 50%;
+}
+
+.img-user {
+    max-width: 200px;
+    border-radius: 50%;
+    height: 200px;
+}
+
+.img-none-user {
+    font-size: 100px;
+    color: #fef9f8;
+}
+
+.btn-profile {
+    background-color: var(--first-light-color);
+    color: #fef9f8;
+    animation: fade-in 1.5s ease-in-out;
+}
+
+.btn-profile:hover {
+    background-color: var(--first-light-color-hover);
+    color: #fef9f8;
+}
+
+.btn-profile:focus, .btn-history:focus {
+    border-color: none;
+    box-shadow: none;
+}
+
+/* Change Info Block */
+.btn-history:hover {
+    color: var(--first-light-color);
+}
+
+.profile-text {
+    font-size: 25px;
+}
+
+.form-label {
+    animation: fade-in 1.5s ease-in-out;
+}
+
+/* Accordion Purchase History */
+.card-header {
+    background: none;
+    border: none;
+}
+
+.card-history {
+    border-radius: 20px;
+    border: 1px solid #999999;
+    animation: news-change-two-percent 1.5s ease-in-out;
+}
+
+.order-border {
+    opacity: 1;
+    border-radius: 10px;
+    border: 1px solid #999999;
+}
+
+.completed-order-text {
+    font-size: 18px;
+    margin-bottom: 0;
+}
+
+.mb-minus-2 {
+    margin-bottom: -2%;
+}
+
+hr {
+    color: #999999;
+    opacity: 1;
+}
+
+/* More Info Purchase History */
+.profile-link {
+    text-decoration: none;
+    color: var(--secondary-color);
+}
+
+.profile-link:hover {
+    color: var(--first-light-color);
+}
+
+.img-sm {
+    width: 65px;
+    height: 95px;
+}

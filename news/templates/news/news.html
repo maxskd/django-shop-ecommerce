@@ -1,0 +1,52 @@
+{% extends 'shop/layout.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'news/css/news.css' %}">
+<!-- News Block -->
+<div class="container-news pt-5">
+    <div class="text-center news-text">
+        <!-- Blog Block -->
+        <h1 class="text-main-info pb-3">Our Blog</h1>
+        <h3 class="px-5 mx-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae est varius, fringilla est in, rutrum urna. Integer auctor nec mauris a tincidunt. In et ipsum magna.
+            Duis id velit tincidunt, dignissim tortor eu, faucibus sem. Nulla egestas justo in pretium condimentum. Maecenas bibendum dui dui, non euismod ipsum facilisis porttitor.
+            Quisque interdum hendrerit nibh in placerat. Donec in sapien velit.
+            Sed pretium tristique metus nec consectetur. Curabitur blandit elit ut erat cursus sodales. Sed mollis ullamcorper faucibus. Vestibulum nibh leo, imperdiet a dui vitae, consectetur tincidunt tellus.
+            Nam ultricies erat sed nisi eleifend, at tempor dui aliquet. Fusce sed felis et enim viverra blandit. In id dui quam.
+        </h3>
+    </div>
+    <!-- News Cards Block -->
+    <div class="row news-card-cl">
+        <div class="col d-none d-lg-block">
+            <h1 class="text-center text-main-info">Our discounts and promotions</h1>
+            <h3 class="text-muted text-center sales-section-error mt-5">There are currently no promotions</h3>
+        </div>
+        <div class="col">
+            <h1 class="text-center text-main-info mx-5">News</h1>
+            <div class="row row-cols-md-1 g-4 mt-1 mb-5">
+                <!-- Card Block -->
+                {% for p in posts %}
+                <div class="col px-5">
+                    <div class="card" id="card_news">
+                        <div class="row g-0">
+                            <!-- News Image Block -->
+                            <div class="col-md-4" id="card-photo-left-id">
+                                <a href="{% url 'post' p.slug_news %}"><img src="{{p.photo.url}}" id="card-photo"></a>
+                            </div>
+                            <!-- News Info Block -->
+                            <div class="col-md-8">
+                                <div class="card-body" id="card-body">
+                                    <h4 class="card-title card-news-text">{{p.title}}</h4>
+                                    <h5 class="card-text card-news-text mt-1">{{p.mini_content}}</h5>
+                                    <p class="card-text card-news-text mt-1"><small class="text-muted">Last update: {{p.time_update}}</small></p>
+                                    <a href="{% url 'post' p.slug_news %}" class="btn btn-lg card-btn-cl mt-2">Read more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends 'shop/layout.html' %}
+{% load static %}
+{% load shop_tags %}
+{% load_user_info as user_info %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'shop/css/checkout.css' %}">
+<!-- Containers Block -->
+<div class="container-checkout pb-5 pt-1 d-flex align-items-center">
+    <div class="container">
+        <div class="row mt-5 px-5">
+            <h1 class="text-center text-main-info pb-4">Checkout</h1>
+            <!-- Cart Block -->
+            <div class="col-lg-4 order-md-2 mb-4">
+                <h2 class="d-flex justify-content-between align-items-center mb-3">
+                    <span>Your Cart:</span>
+                    <span class="badge badge-cart">{{user_info.card_items}}</span>
+                </h2>
+                <ul class="list-group mb-3">
+                {% for i in user_info.items %}
+                    <!-- Product Block -->
+                    <li class="list-group-item d-flex justify-content-between book-in-cart">
+                        <div class="row">
+                            <div class="col-3 text-center">
+                                <a href="{% url 'book' i.book.slug_book %}"><img src="{{i.book.photo_of_book.url}}" class="d-flex justify-content-center img-cart"></a>
+                            </div>
+                            <div class="col-9">
+                                <h6 class="my-0 text-cart"><strong class="strong-cart"><a href="{% url 'book' i.book.slug_book %}" class="profile-link text-decoration-none fs-20">{{i.book.title}}</a></strong></h6>
+                                <small class="text-cart">Electronic book x <strong class="item-quantity">{{i.quantity}}</strong></small>
+                            </div>
+                        </div>
+                        <span><span class="text-cart item-price">{{i.book.price|floatformat:2}}</span>₸</span>
+                    </li>
+                {% endfor %}
+                    <!-- Total Cost Block -->
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span class="text-cart">Total Cost:</span>
+                        <span class="text-cart" id="total-price"><strong></strong></span>
+                    </li>
+                </ul>
+            </div>
+            <!-- Delivery Info Block -->
+            {% for message in messages %}
+            <div class="text-center mb-5 text-success">
+                <h3>{{ message }}</h3>
+            </div>
+            {% endfor %}
+            <div class="col-lg-8 order-md-1 px-5">
+                <h2 class="mb-1">Delivery Address</h2>
+                <form method="post" id="form">
+                    <div class="mb-3">
+                        <label for="address" class="fs-20">Address</label>
+                        <input required type="text" class="form-control" name="address" id="address" autocomplete="off">
+                    </div>
+                    <div class="mb-3">
+                        <label for="zip" class="fs-20">ZIP code</label>
+                        <input required type="text" class="form-control" name="zipcode" id="zip" autocomplete="off">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="country" class="fs-20">Country</label>
+                            <input required class="form-control" name="country" type="text" id="country" autocomplete="off">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="city" class="fs-20">City</label>
+                            <input required class="form-control" name="city" type="text" id="city" autocomplete="off">
+                        </div>
+                    </div>
+                    <hr class="mb-4 mt-4 text-main-info">
+                    <!-- User Info Block -->
+                    <h2 class="mb-2">Contact Details</h2>
+                    {% if user.is_authenticated and user.first_name is not none and user.last_name is not none %}
+                    <h4>Hello <strong>{{user.username}}</strong>, you are already logged into your account</h4>
+                    <h4>We will take your contact details from your profile, if you want to change them, go to <a href="{% url 'profile' %}" class="text-decoration-none profile-link">your profile page</a></h4>
+                    {% else %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="first_name" class="fs-20">Name</label>
+                            <input required class="form-control" name="first_name" type="text" id="first_name" autocomplete="off">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="last_name" class="fs-20">Surname</label>
+                            <input required class="form-control" name="last_name" type="text" id="last_name" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="fs-20">Email Address</label>
+                        <input required class="form-control" name="email" type="email" id="email" autocomplete="off">
+                    </div>
+                    {% endif %}
+                    <hr class="mb-4 mt-3 text-main-info">
+                    <!-- Payment Button -->
+                    <button class="btn btn-primary btn-lg w-100 mb-5 card-btn-cl border-0 shadow-none" id="form-button" type="submit">Continue Shopping</button>
+                    <div id="payment-info" class="hidden">
+                        <button id="make-payment" class="btn btn-payment btn-lg w-100 mb-5 border-0"><i class="bi bi-paypal"></i> Make Payment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Process Order Script -->
+<script>
+    var form = document.getElementById('form')
+    var books = document.getElementsByClassName('book-in-cart')
+    form.addEventListener('submit', function(e){
+        e.preventDefault()
+        document.getElementById('form-button').classList.add("hidden")
+        document.getElementById('payment-info').classList.remove("hidden")
+    })
+    document.getElementById('make-payment').addEventListener('click', function(e){
+        if(books.length > 0){
+            submitFormData();
+        }
+        else {
+            alert('Please, add some product in your cart to use checkout');
+            document.location.reload();
+        }
+    })
+    function submitFormData(){
+        var userFormData = {
+            'name': null,
+            'email': null,
+        }
+
+        {% if not user.is_authenticated %}
+            userFormData.name = form.first_name.value + " " + form.last_name.value
+            userFormData.email = form.email.value
+        {% endif %}
+
+        var shippingFormData = {
+            'address': form.address.value,
+            'country': form.country.value,
+            'city': form.city.value,
+            'zipcode': form.zipcode.value,
+        }
+        var url = '/shop/process_order/'
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json',
+                'X-CSRFToken':csrftoken,
+            },
+            body:JSON.stringify({'form': userFormData, 'shipping':shippingFormData})
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            alert('Transaction Completed')
+            cart = {}
+            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+            location.assign("/shop");
+        })
+    }
+</script>
+<script src="{% static 'shop/js/cart_total.js' %}"></script>
+{% endblock %}
